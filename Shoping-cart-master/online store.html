@@ -1,0 +1,92 @@
+<html>
+<head>
+  <title>ONLINE STORE</title>
+  <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="jquery.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>>
+</head>
+<body>
+<div style="background-color:orange;color:white;text-align:center";>
+<h1 >SHOPPERSTOP ONLINE STORE</h1>
+</div>
+<div class="container">
+  <div class="row" style="margin:20px;">
+    <div class="col-sm-4" style='text-align:center;'>
+      <span class="name" id="N1">Nike Shoes</span><br>
+      <img src="shoes.jpg" style="width:204px;height:128px;"><br>
+      <span>Rs.3000</span>
+      <button class="bton" id="0"> Add to cart</button>
+    </div>
+
+    <div class="col-sm-4" style='text-align:center;'>
+      <span class="name" id="N2">Playstation</span><br>
+      <img src="ps4.jpg" style="width:204px;height:128px;"><br>
+      <span>Rs.5000</span>
+      <button class="bton" id="1"> Add to cart</button>
+    </div>
+    <div class="col-sm-4" style='text-align:center;'>
+      <span class="name" id="N3">book</span><br>
+      <img src="book.jpg" style="width:204px;height:128px;"><br>
+      <span>Rs.1000</span>
+      <button class="bton" id="2"> Add to cart</button>
+    </div>
+  </div>
+  <div class="row" style="margin:20px;">
+    <div class="col-sm-4" style='text-align:center;'>
+      <span class="name" id="N4">HeadPhones</span><br>
+      <img src="headphones.jpg" style="width:204px;height:128px;"><br>
+      <span>Rs.2000</span>
+      <button class="bton" id="3"> Add to cart</button>
+    </div>
+
+    <div class="col-sm-4" style='text-align:center;'>
+      <span class="name" id="N5">Dell Laptop</span><br>
+      <img src="laptop.jpg" style="width:204px;height:128px;"><br>
+      <span>Rs.45000</span>
+      <button class="bton" id="4"> Add to cart</button>
+    </div>
+
+    <div class="col-sm-4" style='text-align:center;'>
+      <span class="name" id="N6">Pendrive</span><br>
+      <img src="pendrive.jpg" style="width:204px;height:128px;"><br>
+      <span>Rs.600</span>
+      <button class="bton" id="5"> Add to cart</button>
+    </div>
+  </div>
+</div>
+<script>
+var selectarr=[];
+function retrive()
+{
+  selectarr= JSON.parse(
+      localStorage.getItem('selectarr') ? localStorage.getItem('selectarr') : '[]');
+}
+retrive();
+function savetodo(){
+  localStorage.setItem("selectarr",JSON.stringify(selectarr));
+}
+var infoarr=[{name:"Nike Shoes",price:3000,q:1},{name:"playstation",price:5000,q:1},{name:"book",price:1000,q:1},{name:"headphones",price:2000,q:1},{name:"laptop",price:45000,q:1},{name:"pendrive",price:600,q:1}];
+var id1;
+$(function(){
+  $('.bton').click(function(){
+ id1=($(this).attr("id"));
+ var itemSelected=infoarr[+id1];
+ selectarr.push(itemSelected);
+ console.log(selectarr[selectarr.length-1]);
+ console.log(document.getElementById(id1).innerHTML);
+ document.getElementById(id1).innerHTML='Added';
+ document.getElementById(id1).disabled=true;
+savetodo();
+
+  });
+
+});
+
+</script>
+<a href="billing table.html" target="_blank"><img src="pay.png" alt="" class="img-responsive center-block" /></a>
+</body>
+</html>

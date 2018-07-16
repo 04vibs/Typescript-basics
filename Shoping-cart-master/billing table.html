@@ -1,0 +1,155 @@
+<html>
+<head>
+  <script src="jquery.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>>
+  <title>My title</title>
+  <script src="jquery.js"></script>
+  <div style="background-color:blue;color:white;text-align:center";>
+
+ <h1 >BILLING AMOUNT</h1>
+ </div>
+ <div style="background-color:powderblue;"</div>
+ <table id="table" class="table table-condensed">
+
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Amount</th>
+      <th>
+  </table>
+</head>
+<body>
+  <script>
+  var selectarr=[];
+  function retrive()
+  {
+    selectarr= JSON.parse(
+        localStorage.getItem('selectarr') ? localStorage.getItem('selectarr') : '[]');
+  }
+  retrive();
+  var rows=[];
+  console.log(selectarr[0].name);
+    var tablew=document.getElementById("table");
+  for(var i=0;i<selectarr.length;i++)
+  {
+  var row1=document.createElement("tr");
+  row1.setAttribute("id","r"+i);
+  rows.push(row1);
+  console.log(row1.id);
+  var data1=document.createElement("td");
+  data1.innerHTML=selectarr[i].name;
+  row1.append(data1);
+  var data2=document.createElement("td");
+  data2.innerHTML=selectarr[i].price;
+  row1.append(data2);
+  var data3=document.createElement("td");
+  var but=document.createElement("button");
+  but.setAttribute("id",""+i);
+  but.setAttribute("class",'increment');
+  but.innerHTML="+";
+  data3.append(but);
+  var quan=document.createElement("span");
+  quan.innerHTML=""+selectarr[i].q;
+  data3.append(quan);
+  var but1=document.createElement("button");
+  but1.setAttribute("id",""+i);
+  but1.setAttribute("class",'decrement');
+  but1.innerHTML="-";
+  data3.append(but1);
+  row1.append(data3);
+  var data4=document.createElement("td");
+  data4.innerHTML=calculateamount(i);
+row1.append(data4);
+  tablew.append(row1);
+
+ }
+   lastrow();
+ function calculateamount(i)
+ {
+   var amt = (+selectarr[i].q)*(+selectarr[i].price);
+   console.log(amt);
+   return amt;
+ }
+ $(function(){
+   $(".increment").click(function(){
+     console.log("inside func");
+     console.log(($(this).attr('id')));
+     var id=($(this).attr('id'));
+     var temp="r"+id;
+     console.log(temp);
+     selectarr[+id].q++;
+     var curr_row=rows[+id];
+     //var p=document.getElementById("temp");
+     curr_row.removeChild(curr_row.lastChild);
+     var datanew=document.createElement("td");
+     datanew.innerHTML=calculateamount(+id);
+     curr_row.append(datanew);
+     curr_row.children[2].children[1].innerHTML=""+selectarr[+id].q;
+     var total=totalamount();
+     console.log(total);
+     tablew.removeChild(tablew.lastChild);
+     lastrow();
+      })
+ })
+ function lastrow(){
+   var r=document.createElement("tr");
+   var d=document.createElement("td");
+   d.innerHTML="Total amount";
+   d.setAttribute("colspan","3");
+   r.append(d);
+    var d1=document.createElement("td");
+    d1.innerHTML=""+totalamount();
+    r.append(d1);
+    tablew.append(r);
+
+ }
+ $(function(){
+   $(".decrement").click(function(){
+     console.log("inside func");
+     console.log(($(this).attr('id')));
+     var id=+($(this).attr('id'));
+     console.log(id);
+     var temp="r"+id;
+     console.log(temp);
+     selectarr[+id].q--;
+     if(selectarr[+id].q<0){selectarr[+id].q=0;}
+     var curr_row=rows[+id];
+     //var p=document.getElementById("temp");
+     curr_row.removeChild(curr_row.lastChild);
+     var datanew=document.createElement("td");
+     datanew.innerHTML=calculateamount(+id);
+     curr_row.append(datanew);
+     curr_row.children[2].children[1].innerHTML=""+selectarr[+id].q;
+
+     var total=totalamount();
+     console.log(total);
+     tablew.removeChild(tablew.lastChild);
+     lastrow();
+   })
+ })
+ function totalamount()
+ {
+   var total=0;
+   for(i in selectarr)
+   {
+     total+=+(selectarr[i].q)*(+(selectarr[i].price));
+   }
+   return total;
+ }
+
+
+  </script>
+  <button onclick="myFunction();" style="float:right;margin-right:50%">PAY</button>
+
+  <script>
+  function myFunction() {
+      alert("THANKS FOR SHOPPING");
+  }
+  </script>
+
+</body>
+</html>
